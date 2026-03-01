@@ -40,7 +40,7 @@ class AppTextStyles {
   static TextStyle highlightedClue = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-    color: AppColors.primary,
+    decoration: TextDecoration.underline,
   );
 
   static TextStyle todo = TextStyle(

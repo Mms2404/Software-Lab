@@ -3,9 +3,7 @@ import 'package:software_lab/features/login/presentation/forgotPassword_screen.d
 import 'package:software_lab/features/login/presentation/login_screen.dart';
 import 'package:software_lab/features/login/presentation/otp_screen.dart';
 import 'package:software_lab/features/login/presentation/resetPassword_screen.dart';
-import 'package:software_lab/features/onboarding/presentation/onboarding_screen_1.dart';
-import 'package:software_lab/features/onboarding/presentation/onboarding_screen_2.dart';
-import 'package:software_lab/features/onboarding/presentation/onboarding_screen_3.dart';
+import 'package:software_lab/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:software_lab/features/signup/presentation/farmInfo_screen.dart';
 import 'package:software_lab/features/signup/presentation/hours_screen.dart';
 import 'package:software_lab/features/signup/presentation/signUp_confirmation_screen.dart';
@@ -23,15 +21,7 @@ class AppRouter {
       /// ONBOARDING
       GoRoute(
         path: '/',
-        builder: (context, state) => const OnboardingScreen1(),
-      ),
-      GoRoute(
-        path: '/onboarding2',
-        builder: (context, state) => const OnboardingScreen2(),
-      ),
-      GoRoute(
-        path: '/onboarding3',
-        builder: (context, state) => const OnboardingScreen3(),
+        builder: (context, state) => const OnboardingScreen(),
       ),
 
 

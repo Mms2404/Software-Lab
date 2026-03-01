@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:software_lab/core/router/app_router.dart';
 import 'core/theme/app_theme.dart';
 
 void main() {
@@ -16,9 +17,10 @@ class FarmerEatsApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return MaterialApp.router(
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
+          routerConfig: AppRouter.router,
         );
       },
     );
