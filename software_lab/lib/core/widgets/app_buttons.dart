@@ -11,7 +11,7 @@ class AppButtons {
     required VoidCallback onPressed,
   }) {
     return SizedBox(
-      width: 330.w,
+      width: double.infinity,
       height: 52.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
@@ -37,7 +37,7 @@ class AppButtons {
   }) {
     return SizedBox(
       width: 236.w,
-      height: 60.h,
+      height: 52.h,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
@@ -54,6 +54,34 @@ class AppButtons {
       ),
     );
   }
+
+
+  static Widget icon({
+  required String iconPath,
+  required VoidCallback onPressed,
+}) {
+  return SizedBox(
+    height: 52.h,
+    width: 96.w,
+    child: InkWell(
+      borderRadius: BorderRadius.circular(30.r),
+      onTap: onPressed,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(30.r),
+          border: Border.all(
+            color: Colors.grey.shade300,
+            width: 1,
+          ),
+        ),
+        child: Center(
+          child: Image.asset(iconPath, width: 30.w, height: 30.h),
+        ),
+      ),
+    ),
+  );
+}
 
 
 static Widget choose({
@@ -142,6 +170,7 @@ static Widget chooseDay({
     ),
   );
 }
+
 
 }
 

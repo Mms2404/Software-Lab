@@ -21,22 +21,25 @@ class AppDropdown<T> extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 126.w,
-      height: 48.h,
+      height: 52.h,
       child: DropdownButtonFormField<T>(
         initialValue: value,
         items: items,
         onChanged: onChanged,
-        icon: Image.asset(  
-          'assets/icons/dropdown.png',
-          width: 16.w,
-          height: 16.h,
+        icon: Padding(
+          padding: EdgeInsets.all(5.w),
+          child: Image.asset(  
+            'assets/icons/dropdown.png',
+            width: 8.w,
+            height: 8.h,
+          ),
         ),
         style: AppTextStyles.paragraph,
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppTextStyles.clue,
           filled: true,
-          fillColor: AppColors.primary.withValues(alpha: 0.08),
+          fillColor: AppColors.lightText.withValues(alpha: 0.08),
 
           contentPadding: EdgeInsets.symmetric(
             horizontal: 16.w,

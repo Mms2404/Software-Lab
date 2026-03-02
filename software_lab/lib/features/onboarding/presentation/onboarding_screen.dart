@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:software_lab/core/constants/app_colors.dart';
 import 'package:software_lab/core/constants/app_strings.dart';
 import 'package:software_lab/core/theme/app_text_styles.dart';
@@ -73,73 +73,92 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
         ),
 
-        Container(
-          height: 391.h,
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(40.r),
+        GestureDetector(
+          onHorizontalDragEnd: (details) {
+            if (details.primaryVelocity! < 0) {
+              if (currentIndex < images.length - 1) {
+                _controller.nextPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              }
+            } else if (details.primaryVelocity! > 0) {
+              if (currentIndex > 0) {
+                _controller.previousPage(
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              }
+            }
+          },
+          child: Container(
+            height: 391.h,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(40.r),
+              ),
             ),
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(bottom: 15.h,right: 25.w, left: 25.w),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-        
-                Text(
-                  titles[currentIndex],
-                  style: AppTextStyles.subTitle,
-                ),
-        
-                SizedBox(height: 30.h),
-        
-                Text(
-                  descriptions[currentIndex],
-                  textAlign: TextAlign.center,
-                  style: AppTextStyles.paragraph,
-                ),
-        
-                SizedBox(height: 30.h),
-        
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(
-                    images.length,
-                    (index) => AnimatedContainer(
-                      duration: Duration(milliseconds: 300),
-                      margin: EdgeInsets.symmetric(horizontal: 4.w),
-                      width: currentIndex == index ? 16.w : 6.w,
-                      height: 6.h,
-                      decoration: BoxDecoration(
-                        color: Colors.black,
-                        borderRadius: BorderRadius.circular(10.r),
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 15.h,right: 25.w, left: 25.w),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+          
+                  Text(
+                    titles[currentIndex],
+                    style: AppTextStyles.subTitle,
+                  ),
+          
+                  SizedBox(height: 30.h),
+          
+                  Text(
+                    descriptions[currentIndex],
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.paragraph,
+                  ),
+          
+                  SizedBox(height: 30.h),
+          
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: List.generate(
+                      images.length,
+                      (index) => AnimatedContainer(
+                        duration: Duration(milliseconds: 300),
+                        margin: EdgeInsets.symmetric(horizontal: 4.w),
+                        width: currentIndex == index ? 16.w : 6.w,
+                        height: 6.h,
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(10.r),
+                        ),
                       ),
                     ),
                   ),
-                ),
-        
-                SizedBox(height: 50.h),
-        
-                AppButtons.half(
-                  text: "Join the movement!",
-                  backgroundColor: bgColors[currentIndex],
-                  onPressed: () {},
-                ),
-        
-                SizedBox(height: 10.h),
-        
-                TextButton(
-                  onPressed: () {
-                    Navigator.pushNamed(context, "/login");
-                  },
-                  child: Text(
-                    "Login",
-                    style: AppTextStyles.highlightedClue,
+          
+                  SizedBox(height: 50.h),
+          
+                  AppButtons.half(
+                    text: "Join the movement!",
+                    backgroundColor: bgColors[currentIndex],
+                    onPressed: () {},
                   ),
-                ),
-              ],
+          
+                  SizedBox(height: 10.h),
+          
+                  TextButton(
+                    onPressed: () {
+                      context.go("/login");
+                    },
+                    child: Text(
+                      "Login",
+                      style: AppTextStyles.todo,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

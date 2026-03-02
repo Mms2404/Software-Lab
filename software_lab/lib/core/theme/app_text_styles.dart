@@ -6,7 +6,7 @@ class AppTextStyles {
   AppTextStyles._();
 
   static TextStyle logo = TextStyle(
-    fontSize: 16.sp,
+    fontSize: 18.sp,
     fontWeight: FontWeight.w400,
   );
 
@@ -40,11 +40,19 @@ class AppTextStyles {
   static TextStyle highlightedClue = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
-    decoration: TextDecoration.underline,
+    color: AppColors.primary,
   );
 
   static TextStyle todo = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
+    color: AppColors.logo,
+    decoration: TextDecoration.underline,
+  );
+
+  static TextStyle mini = TextStyle(
+    fontSize: 10.sp,
+    fontWeight: FontWeight.w500,
+    color: AppColors.lightText,
   );
 }

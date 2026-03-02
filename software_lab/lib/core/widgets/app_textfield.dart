@@ -10,6 +10,8 @@ class AppTextField extends StatelessWidget {
   final String? suffixText;
   final VoidCallback? onSuffixTap;
   final bool obscureText;
+  final TextInputType type;
+  final String? Function(String?)? validator;
 
   const AppTextField({
     super.key,
@@ -18,33 +20,33 @@ class AppTextField extends StatelessWidget {
     this.prefixIcon,
     this.suffixText,
     this.onSuffixTap,
+    this.validator,
     this.obscureText = false,
+    this.type = TextInputType.text,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 330.w,
-      height: 48.h,
-      child: TextField(
+      width: double.infinity,
+      height: 55.h,
+      child: TextFormField(
         controller: controller,
         obscureText: obscureText,
+        keyboardType: type,
+        validator: validator,
         style: const TextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: AppColors.primary,
+          color: AppColors.lightText,
         ),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: AppColors.primary.withValues(alpha: 0.4),
-          ),
+          hintStyle: AppTextStyles.clue,
 
 
           filled: true,
-          fillColor: AppColors.primary.withValues(alpha: 0.08),
+          fillColor: AppColors.lightText.withValues(alpha: 0.08),
 
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(8.r),
@@ -58,10 +60,14 @@ class AppTextField extends StatelessWidget {
             borderRadius: BorderRadius.circular(8.r),
             borderSide: BorderSide.none,
           ),
+          errorStyle: TextStyle(
+            fontSize: 12.sp,
+            color: AppColors.primary,
+          ),
 
           prefixIcon: prefixIcon != null
               ? Padding(
-                  padding:EdgeInsets.all(12.w),
+                  padding:EdgeInsets.all(18.w),
                   child: prefixIcon,
                 )
               : null,
@@ -70,12 +76,10 @@ class AppTextField extends StatelessWidget {
               ? GestureDetector(
                   onTap: onSuffixTap,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
-                    child: Center(
-                      child: Text(
-                        suffixText!,
-                        style: AppTextStyles.highlightedClue,
-                      ),
+                    padding: EdgeInsets.all(18.w),
+                    child: Text(
+                      suffixText!,
+                      style: AppTextStyles.highlightedClue,
                     ),
                   ),
                 )
