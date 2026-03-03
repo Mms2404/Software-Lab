@@ -34,7 +34,11 @@ class AppDropdown<T> extends StatelessWidget {
             height: 8.h,
           ),
         ),
-        style: AppTextStyles.paragraph,
+        style: TextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w400,
+          color: AppColors.logo
+        ),
         decoration: InputDecoration(
           hintText: hintText,
           hintStyle: AppTextStyles.clue,

@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:software_lab/core/constants/app_colors.dart';
 import 'package:software_lab/core/constants/app_strings.dart';
-import 'package:software_lab/core/theme/app_text_styles.dart';
 import 'package:software_lab/core/widgets/app_buttons.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -108,15 +107,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           
                   Text(
                     titles[currentIndex],
-                    style: AppTextStyles.subTitle,
-                  ),
+                    style: TextStyle(fontSize: 24.sp,
+                      fontWeight: FontWeight.w700,),
+                    ),
           
                   SizedBox(height: 30.h),
           
                   Text(
                     descriptions[currentIndex],
                     textAlign: TextAlign.center,
-                    style: AppTextStyles.paragraph,
+                    style: TextStyle(
+                      fontSize: 14.sp,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.logo
+                    )
                   ),
           
                   SizedBox(height: 30.h),
@@ -154,7 +158,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     },
                     child: Text(
                       "Login",
-                      style: AppTextStyles.todo,
+                      style: TextStyle(fontSize: 14.sp,
+                         fontWeight: FontWeight.w500,
+                        color: AppColors.logo,
+                        decoration: TextDecoration.underline,)
                     ),
                   ),
                 ],

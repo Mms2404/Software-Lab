@@ -6,17 +6,9 @@ class AppTheme {
   AppTheme._();
 
   static ThemeData lightTheme = ThemeData(
-     textTheme: GoogleFonts.beVietnamProTextTheme(),
+    textTheme: GoogleFonts.beVietnamProTextTheme(),
     useMaterial3: true,
-
-    primaryColor: AppColors.primary,
     scaffoldBackgroundColor: AppColors.white,
-
-    colorScheme: const ColorScheme.light(
-      primary: AppColors.primary,
-      secondary: AppColors.secondary,
-      tertiary: AppColors.tertiary,
-    ),
 
   );
 }

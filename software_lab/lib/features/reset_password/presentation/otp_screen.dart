@@ -73,7 +73,11 @@ class _OtpScreenState extends State<OtpScreen> {
                   Row(
                     children: [
                       Text("Remember your password? ",
-                          style: AppTextStyles.paragraph),
+                          style: TextStyle(
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.logo
+                          )),
                       GestureDetector(
                         onTap: () => context.go("/login"),
                         child:

@@ -130,7 +130,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       onTap: () => context.go("/login"),
                       child: Padding(
                         padding: EdgeInsets.only(left: 8.w),
-                        child: Text("Login", style: AppTextStyles.todo),
+                        child: Text("Login", style:TextStyle(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.logo,
+                          decoration: TextDecoration.underline,
+                        )),
                       ),
                     ),
                     AppButtons.half(
