@@ -23,6 +23,7 @@ dependencies:
   fpdart: ^1.2.0
   equatable : 
   lottie: ^3.3.2
+  google_fonts: ^8.0.2
 
 dev_dependencies:
   flutter_test:
@@ -46,7 +47,3 @@ flutter:
     - assets/icons/
     - assets/lottie/
 
-  fonts:
-    - family: BeVientnam
-      fonts:
-        - asset: assets/fonts/BeVietnam-Regular.ttf
