@@ -1,16 +1,11 @@
-import 'package:equatable/equatable.dart';
-import 'package:software_lab/features/signup/domain/entities/signup_entity.dart';
+import 'package:software_lab/features/signup/data/models/signup_request_model.dart';
 
-abstract class SignupEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
+sealed class SignupEvent {
+  const SignupEvent();
 }
 
 class SignupSubmitted extends SignupEvent {
-  final SignUpEntity entity;
+  final SignupRequestModel request;
 
-  SignupSubmitted(this.entity);
-
-  @override
-  List<Object?> get props => [entity];
+  const SignupSubmitted(this.request);
 }

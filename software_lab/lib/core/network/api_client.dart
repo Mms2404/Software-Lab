@@ -1,17 +1,17 @@
 import 'package:dio/dio.dart';
+import 'package:fpdart/fpdart.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:software_lab/core/network/api_constants.dart';
-import 'package:software_lab/core/network/api_exceptions.dart';
+import 'package:software_lab/core/network/failures.dart';
 
 class ApiClient {
-
   static final ApiClient _instance = ApiClient._internal();
   factory ApiClient() => _instance;
 
   late final Dio _dio;
   Dio get dio => _dio;
 
-  ApiClient._internal(){
+  ApiClient._internal() {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiConstants.baseUrl,
@@ -24,19 +24,19 @@ class ApiClient {
         },
       ),
     )..interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseHeader: true,
-        responseBody: true,
-        error: true,
-        compact: false,
-      ),
-    );
+        PrettyDioLogger(
+          requestHeader: true,
+          requestBody: true,
+          responseHeader: true,
+          responseBody: true,
+          error: true,
+          compact: false,
+        ),
+      );
   }
 
   // MULTIPART POST (Register)
-  Future<Response> postFormData(
+  Future<Either<Failure, Response>> postFormData(
     String path, {
     required FormData formData,
   }) async {
@@ -51,14 +51,16 @@ class ApiClient {
           },
         ),
       );
-      return response;
+      return Right(response);
     } on DioException catch (e) {
-      throw Exception(ApiExceptions.handle(e));
+      return Left(_handleDioException(e));
+    } catch (e) {
+      return Left(UnknownFailure(message: e.toString()));
     }
   }
 
   // JSON POST
-  Future<Response> post(
+  Future<Either<Failure, Response>> post(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -69,15 +71,16 @@ class ApiClient {
         data: data,
         queryParameters: queryParameters,
       );
-      return response;
+      return Right(response);
     } on DioException catch (e) {
-      throw Exception(ApiExceptions.handle(e));
+      return Left(_handleDioException(e));
+    } catch (e) {
+      return Left(UnknownFailure(message: e.toString()));
     }
   }
 
-
   // GET
-  Future<Response> get(
+  Future<Either<Failure, Response>> get(
     String path, {
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -86,11 +89,45 @@ class ApiClient {
         path,
         queryParameters: queryParameters,
       );
-      return response;
+      return Right(response);
     } on DioException catch (e) {
-      throw Exception(ApiExceptions.handle(e));
+      return Left(_handleDioException(e));
+    } catch (e) {
+      return Left(UnknownFailure(message: e.toString()));
     }
   }
 
+  Failure _handleDioException(DioException e) {
+    if (e.type == DioExceptionType.connectionError) {
+      return const NetworkFailure(
+        message: "No internet connection. Please check your network.",
+      );
+    }
 
+    if (e.type == DioExceptionType.connectionTimeout ||
+        e.type == DioExceptionType.receiveTimeout ||
+        e.type == DioExceptionType.sendTimeout) {
+      return const TimeoutFailure(
+        message: "Connection timed out. Please try again.",
+      );
+    }
+
+    if (e.response != null) {
+      final data = e.response?.data;
+      String message = "Server error (${e.response?.statusCode})";
+
+      if (data is Map && data.containsKey("message")) {
+        message = data["message"];
+      }
+
+      return ServerFailure(
+        message: message,
+        statusCode: e.response?.statusCode,
+      );
+    }
+
+    return const UnknownFailure(
+      message: "Something went wrong. Please try again.",
+    );
+  }
 }

@@ -16,7 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 10), () {
       if (mounted) {
         context.go("/login"); 
       }
@@ -29,8 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Center(
         child: Lottie.asset(
           "assets/lottie/farmer.json",
-          width: 200.w,
-          height: 200.h,
+          width: 600.w,
+          height: 600.h,
           fit: BoxFit.contain,
         ),
       ),

@@ -1,28 +1,26 @@
-import 'package:equatable/equatable.dart';
+import 'package:software_lab/core/network/failures.dart';
+import 'package:software_lab/features/signup/domain/entities/signup_entity.dart';
 
-abstract class SignupState extends Equatable {
-  @override
-  List<Object?> get props => [];
+sealed class SignupState {
+  const SignupState();
 }
 
-class SignupInitial extends SignupState {}
+class SignupInitial extends SignupState {
+  const SignupInitial();
+}
 
-class SignupLoading extends SignupState {}
+class SignupLoading extends SignupState {
+  const SignupLoading();
+}
 
 class SignupSuccess extends SignupState {
-  final String token;
+  final SignupEntity entity;
 
-  SignupSuccess(this.token);
-
-  @override
-  List<Object?> get props => [token];
+  const SignupSuccess(this.entity);
 }
 
 class SignupFailure extends SignupState {
-  final String message;
+  final Failure failure;
 
-  SignupFailure(this.message);
-
-  @override
-  List<Object?> get props => [message];
+  const SignupFailure(this.failure);
 }

@@ -81,7 +81,7 @@ class _NotificationWidgetState extends State<_NotificationWidget>
     );
 
     _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, -1),
+      begin: const Offset(-1, 0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
       parent: _controller,
@@ -114,7 +114,7 @@ class _NotificationWidgetState extends State<_NotificationWidget>
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: MediaQuery.of(context).padding.top + 16.h,
+      bottom: MediaQuery.of(context).padding.bottom + 20.h,
       left: 16.w,
       right: 16.w,
       child: SlideTransition(
@@ -139,28 +139,28 @@ class _NotificationWidgetState extends State<_NotificationWidget>
   switch (widget.type) {
     case NotificationType.success:
       borderColor = AppColors.tertiary;
-      bgColor = AppColors.tertiary.withOpacity(0.12);
+      bgColor = AppColors.tertiary.withValues(alpha: 0.12);
       iconData = Icons.check_circle;
       iconColor = AppColors.tertiary;
       break;
 
     case NotificationType.error:
       borderColor = AppColors.primary;
-      bgColor = AppColors.primary.withOpacity(0.12);
+      bgColor = AppColors.primary.withValues(alpha: 0.12);
       iconData = Icons.error;
       iconColor = AppColors.primary;
       break;
 
     case NotificationType.warning:
       borderColor = AppColors.secondary;
-      bgColor = AppColors.secondary.withOpacity(0.15);
+      bgColor = AppColors.secondary.withValues(alpha: 0.12);
       iconData = Icons.warning_amber_rounded;
       iconColor = AppColors.secondary;
       break;
 
     case NotificationType.info:
       borderColor = AppColors.primary;
-      bgColor = AppColors.primary.withOpacity(0.08);
+      bgColor = AppColors.primary.withValues(alpha: 0.12);
       iconData = Icons.info;
       iconColor = AppColors.primary;
       break;

@@ -6,7 +6,7 @@ import 'package:software_lab/core/theme/app_text_styles.dart';
 class AppTextField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
-  final Widget? prefixIcon;
+  final String? prefixIcon;
   final String? suffixText;
   final VoidCallback? onSuffixTap;
   final bool obscureText;
@@ -29,18 +29,18 @@ class AppTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: double.infinity,
-      height: 55.h,
       child: TextFormField(
         controller: controller,
         obscureText: obscureText,
         keyboardType: type,
         validator: validator,
-        style: const TextStyle(
-          fontSize: 14,
+        style: TextStyle(
+          fontSize: 14.sp,
           fontWeight: FontWeight.w500,
           color: AppColors.lightText,
         ),
         decoration: InputDecoration(
+          isDense: true,
           hintText: hintText,
           hintStyle: AppTextStyles.clue,
 
@@ -68,7 +68,7 @@ class AppTextField extends StatelessWidget {
           prefixIcon: prefixIcon != null
               ? Padding(
                   padding:EdgeInsets.all(18.w),
-                  child: prefixIcon,
+                  child: Image.asset(prefixIcon!,height: 15.h,width: 15.w,)
                 )
               : null,
 

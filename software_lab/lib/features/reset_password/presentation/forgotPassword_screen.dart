@@ -6,14 +6,13 @@ import 'package:software_lab/core/widgets/app_buttons.dart';
 import 'package:software_lab/core/widgets/app_logo.dart';
 import 'package:software_lab/core/widgets/app_textfield.dart';
 
-class ResetPasswordScreen extends StatelessWidget {
-  const ResetPasswordScreen({super.key});
+class ForgotPasswordScreen extends StatelessWidget {
+  const ForgotPasswordScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
 
-    TextEditingController passwordcontroller = TextEditingController();
-    TextEditingController newpasswordcontroller = TextEditingController();
+    TextEditingController phonecontroller = TextEditingController();
 
     return Scaffold(
       body: Padding(
@@ -43,24 +42,17 @@ class ResetPasswordScreen extends StatelessWidget {
             SizedBox(height: 60.h),
 
             AppTextField(
-              controller: passwordcontroller, 
-              hintText: "Password",
-              obscureText: true,
-              prefixIcon: Image.asset("assets/icons/password.png"),
-            ),
-            SizedBox(height: 20.h),
-            AppTextField(
-              controller: newpasswordcontroller, 
-              hintText: "New Password",
-              prefixIcon: Image.asset("assets/icons/password.png"),
-              obscureText: true,
+              controller: phonecontroller, 
+              hintText: "Phone Number",
+              type: TextInputType.phone,
+              prefixIcon: "assets/icons/phone.png",
             ),
             SizedBox(height: 30.h),
 
             AppButtons.full(
-              text: "Submit", 
+              text: "Send Code", 
               onPressed: () {
-                context.go("/login");
+                context.go("/home");
               }),
               
           ],

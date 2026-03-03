@@ -13,6 +13,7 @@ class AppTextStyles {
   static TextStyle paragraph = TextStyle(
     fontSize: 14.sp,
     fontWeight: FontWeight.w400,
+    color: AppColors.logo
   );
 
   static TextStyle title = TextStyle(

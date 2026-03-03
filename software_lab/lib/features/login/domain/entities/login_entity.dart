@@ -1,8 +1,8 @@
-class SignupEntity {
+class LoginEntity {
   final String token;
   final String message;
 
-  const SignupEntity({
+  const LoginEntity({
     required this.token,
     required this.message,
   });

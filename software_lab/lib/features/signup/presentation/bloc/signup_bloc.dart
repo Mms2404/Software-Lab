@@ -1,13 +1,12 @@
-import 'package:bloc/bloc.dart';
-import 'package:software_lab/features/signup/domain/repositories/auth_repository.dart';
-
-import 'signup_event.dart';
-import 'signup_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:software_lab/features/signup/domain/repositories/signup_repository.dart';
+import 'package:software_lab/features/signup/presentation/bloc/signup_event.dart';
+import 'package:software_lab/features/signup/presentation/bloc/signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  final AuthRepository repository;
+  final SignupRepository _repository;
 
-  SignupBloc(this.repository) : super(SignupInitial()) {
+  SignupBloc(this._repository) : super(const SignupInitial()) {
     on<SignupSubmitted>(_onSignupSubmitted);
   }
 
@@ -15,13 +14,13 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     SignupSubmitted event,
     Emitter<SignupState> emit,
   ) async {
-    emit(SignupLoading());
+    emit(const SignupLoading());
 
-    final result = await repository.signup(event.entity);
+    final result = await _repository.register(event.request);
 
     result.fold(
       (failure) => emit(SignupFailure(failure)),
-      (token) => emit(SignupSuccess(token)),
+      (entity) => emit(SignupSuccess(entity)),
     );
   }
 }

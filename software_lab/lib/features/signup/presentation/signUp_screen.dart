@@ -18,11 +18,32 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController fullnamecontroller = TextEditingController();
-  TextEditingController emailcontroller = TextEditingController();
-  TextEditingController phonecontroller = TextEditingController();
-  TextEditingController passwordcontroller = TextEditingController();
-  TextEditingController confirmpasswordcontroller = TextEditingController();
+  late final TextEditingController fullnamecontroller;
+  late final TextEditingController emailcontroller;
+  late final TextEditingController phonecontroller;
+  late final TextEditingController passwordcontroller;
+  late final TextEditingController confirmpasswordcontroller;
+
+  @override
+  void initState() {
+    super.initState();
+    fullnamecontroller = TextEditingController();
+    emailcontroller = TextEditingController();
+    phonecontroller = TextEditingController();
+    passwordcontroller = TextEditingController();
+    confirmpasswordcontroller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    fullnamecontroller.dispose();
+    emailcontroller.dispose();
+    phonecontroller.dispose();
+    passwordcontroller.dispose();
+    confirmpasswordcontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,116 +55,107 @@ class _SignUpScreenState extends State<SignUpScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                AppLogo(),
+                const AppLogo(),
                 SizedBox(height: 40.h),
-                    
-                Text("Signup 1 of 4", style: AppTextStyles.clue,),
+                Text("Signup 1 of 4", style: AppTextStyles.clue),
                 SizedBox(height: 6.h),
-                Text(
-                  "Welcome!",
-                  style:AppTextStyles.title,
-                ),
-                  SizedBox(height: 30.h),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      AppButtons.icon(
-                        iconPath: "assets/icons/google.png", 
-                        onPressed: () {
-                        }),
-                      AppButtons.icon(
-                        iconPath: "assets/icons/apple.png", 
-                        onPressed: () {
-                        }),
-                      AppButtons.icon(
-                        iconPath: "assets/icons/facebook.png", 
-                        onPressed: () {
-                        }),
-                    ],
-                  ),
-                  SizedBox(height: 30.h),
-                  Center(child: Text("or signup with", style: AppTextStyles.mini,)),
-                    
+                Text("Welcome!", style: AppTextStyles.title),
                 SizedBox(height: 30.h),
-                    
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    AppButtons.icon(
+                      iconPath: "assets/icons/google.png",
+                      onPressed: () {},
+                    ),
+                    AppButtons.icon(
+                      iconPath: "assets/icons/apple.png",
+                      onPressed: () {},
+                    ),
+                    AppButtons.icon(
+                      iconPath: "assets/icons/facebook.png",
+                      onPressed: () {},
+                    ),
+                  ],
+                ),
+                SizedBox(height: 30.h),
+                Center(
+                  child: Text("or signup with", style: AppTextStyles.mini),
+                ),
+                SizedBox(height: 30.h),
                 AppTextField(
-                  controller: fullnamecontroller, 
-                  validator: (v) => v == null || v.isEmpty ? "Full name is required" : null,
+                  controller: fullnamecontroller,
+                  validator: (v) =>
+                      v == null || v.isEmpty ? "Full name is required" : null,
                   hintText: "Full Name",
-
-                  prefixIcon: Image.asset("assets/icons/person.png"),
+                  prefixIcon: "assets/icons/person.png",
                 ),
                 SizedBox(height: 20.h),
                 AppTextField(
-                  controller: emailcontroller, 
+                  controller: emailcontroller,
                   hintText: "Email Address",
                   validator: AppValidators.validateEmail,
-                  prefixIcon: Image.asset("assets/icons/email.png"),
+                  prefixIcon: "assets/icons/email.png",
                 ),
                 SizedBox(height: 20.h),
                 AppTextField(
-                  controller: phonecontroller, 
+                  controller: phonecontroller,
                   hintText: "Phone Number",
                   type: TextInputType.number,
                   validator: AppValidators.validatePhone,
-                  prefixIcon: Image.asset("assets/icons/phone.png"),
+                  prefixIcon: "assets/icons/phone.png",
                 ),
                 SizedBox(height: 20.h),
                 AppTextField(
-                  controller: passwordcontroller, 
+                  controller: passwordcontroller,
                   hintText: "Password",
                   validator: AppValidators.validatePassword,
-                  prefixIcon: Image.asset("assets/icons/password.png"),
+                  prefixIcon: "assets/icons/password.png",
                   obscureText: true,
                 ),
                 SizedBox(height: 20.h),
                 AppTextField(
-                  controller: confirmpasswordcontroller, 
-                  hintText: "Password",
-                  validator: (value) => AppValidators.validateConfirmPassword(value, passwordcontroller.text),
-                  prefixIcon: Image.asset("assets/icons/password.png"),
+                  controller: confirmpasswordcontroller,
+                  hintText: "Confirm Password",
+                  validator: (value) => AppValidators.validateConfirmPassword(
+                      value, passwordcontroller.text),
+                  prefixIcon: "assets/icons/password.png",
                   obscureText: true,
                 ),
-                    
                 SizedBox(height: 40.h),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GestureDetector(
-                      onTap: (){
-                        context.go("/login");
-                      },
+                      onTap: () => context.go("/login"),
                       child: Padding(
                         padding: EdgeInsets.only(left: 8.w),
-                        child: Text("Login",
-                        style: AppTextStyles.todo,),
+                        child: Text("Login", style: AppTextStyles.todo),
                       ),
                     ),
-            
                     AppButtons.half(
                       backgroundColor: AppColors.primary,
                       text: "Continue",
                       onPressed: () {
-                        if(! _formKey.currentState!.validate()) return;
+                        if (!_formKey.currentState!.validate()) return;
 
                         final flow = SignupFlowData()
-                        ..fullName = fullnamecontroller.text.trim()
-                        ..email = emailcontroller.text.trim()
-                        ..phone = phonecontroller.text.trim()
-                        ..password = passwordcontroller.text;
+                          ..fullName = fullnamecontroller.text.trim()
+                          ..email = emailcontroller.text.trim()
+                          ..phone = phonecontroller.text.trim()
+                          ..password = passwordcontroller.text;
 
-                        context.push("/signup/farm-info",extra: flow);
+                        context.push("/signup/farm-info", extra: flow);
                       },
                     ),
                   ],
-                )
-                    
-                  
+                ),
+                SizedBox(height: 20.h),
               ],
             ),
           ),
         ),
-      )
+      ),
     );
   }
 }
