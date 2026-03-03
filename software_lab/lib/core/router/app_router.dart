@@ -5,11 +5,14 @@ import 'package:software_lab/features/home/home_screen.dart';
 import 'package:software_lab/features/login/data/datasources/login_remote_datasource.dart';
 import 'package:software_lab/features/login/domain/repositories/login_repository_impl.dart';
 import 'package:software_lab/features/login/presentation/bloc/login_bloc.dart';
-import 'package:software_lab/features/reset_password/presentation/forgotPassword_screen.dart';
 import 'package:software_lab/features/login/presentation/login_screen.dart';
+import 'package:software_lab/features/onboarding/presentation/onboarding_screen.dart';
+import 'package:software_lab/features/reset_password/data/datasources/password_reset_remote_datasource.dart';
+import 'package:software_lab/features/reset_password/domain/repositories/password_reset_repositoryImpl.dart';
+import 'package:software_lab/features/reset_password/presentation/bloc/password_reset_state.dart';
+import 'package:software_lab/features/reset_password/presentation/forgotPassword_screen.dart';
 import 'package:software_lab/features/reset_password/presentation/otp_screen.dart';
 import 'package:software_lab/features/reset_password/presentation/resetPassword_screen.dart';
-import 'package:software_lab/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:software_lab/features/signup/data/datasources/signup_remote_datasource.dart';
 import 'package:software_lab/features/signup/data/repositories/signup_repository_impl.dart';
 import 'package:software_lab/features/signup/presentation/bloc/signup_bloc.dart';
@@ -41,21 +44,34 @@ class AppRouter {
         ),
       ),
 
-      /// FORGOT PASSWORD / OTP / RESET
-      GoRoute(
-        path: '/forgot-password',
-        builder: (context, state) => const ForgotPasswordScreen(),
-      ),
-      GoRoute(
-        path: '/otp',
-        builder: (context, state) => const OtpScreen(),
-      ),
-      GoRoute(
-        path: '/reset-password',
-        builder: (context, state) => const ResetPasswordScreen(),
+      ShellRoute(
+        builder: (context, state, child) {
+          return BlocProvider(
+            create: (_) => PasswordResetBloc(
+              PasswordResetRepositoryImpl(
+                PasswordResetRemoteDataSource(ApiClient())
+              )
+            ),
+            child: child,
+          );
+        },
+        routes: [
+          GoRoute(
+            path: '/forgot-password',
+            builder: (context, state) => const ForgotPasswordScreen(),
+          ),
+          GoRoute(
+            path: '/otp',
+            builder: (context, state) => const OtpScreen(),
+          ),
+          GoRoute(
+            path: '/reset-password',
+            builder: (context, state) => const ResetPasswordScreen(),
+          ),
+        ],
       ),
 
-      /// SIGNUP FLOW — each screen passes SignupFlowData via extra
+      /// SIGNUP FLOW
       GoRoute(
         path: '/signup',
         builder: (context, state) => const SignUpScreen(),
