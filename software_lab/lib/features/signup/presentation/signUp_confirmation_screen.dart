@@ -38,6 +38,10 @@ class _SignupConfirmationScreenState extends State<SignupConfirmationScreen> {
                 height: 80.h,
               ),
               SizedBox(height: 30.h),
+              Text("You’re all done!",style:TextStyle(
+                fontSize: 32.sp,
+                fontWeight: FontWeight.w700,)),
+              SizedBox(height: 30.h),
               Text(AppStrings.signupComplete, style: AppTextStyles.clue),
             ],
           ),
